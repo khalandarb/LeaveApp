@@ -64,6 +64,14 @@ namespace LeaveApp
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseCors();
+            app.UseCors(Builder =>
+            {
+                Builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
 
             app.UseAuthorization();
 
