@@ -1,23 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
+import EmployeeListComponent from './Components/Employees/EmployeeList';
+import LeaveListComponent from './Components/Leave/LeaveList';
+import LoginParam from './Login/LoginPage';
+
+import DashBoard from './Components/Dashboard/dashboard';
+
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Leave Please!</h1>
+      {/* <EmployeeListComponent></EmployeeListComponent>
+      <LeaveListComponent></LeaveListComponent> */}
+      
+      <LoginParam></LoginParam>
     </div>
   );
 }
