@@ -2,7 +2,6 @@ import {React} from "react";
 //import Redirect from 'react-router-dom';
 import { useState } from "react";
 import axios from "axios";
-import DashBoard from "../Components/Dashboard/dashboard";
 import { Navigate } from "react-router-dom";
 
 export default function Login() {
@@ -19,19 +18,45 @@ function validateForm() {
 async function handleSubmit(event){
 console.log('handle submit called')
   event.preventDefault();
+  const token = localStorage.getItem("token");
+
+  let loggedIn=false;
+  let RedirectPath="/Dashboard";
+  
+  if(token != null){
+    //alert(token)
+    loggedIn=true;
+  }
 
   console.log(email,password,role);
+  const obj={userEmail:email};
+
  const result= await axios.post('http://localhost:46044/api/Logins',
    {"email":email,"password":password,"role":role})
    .then(res=> {
        console.log(res.data);
    return res.data;
    });
+
+   if(role==="Manager" && result===true){
+    RedirectPath="/MgrDashboard";
+    localStorage.setItem("token","qwerty");
+    localStorage.setItem('MgrEmail',email);
+      
+    alert("Login Successsful");
+    window.location= "/MgrDashboard";
+   }
+   
    //alert(result)
-    if(result===true)
+    else if(result===true && role==="Employee")
     {
+      localStorage.setItem('email',email);
+      localStorage.setItem("token","qwerty");
+
+
+
       alert("Login Successsful");
-         window.location= DashBoard;
+         window.location= "/Dashboard";
      
     }
     else{
@@ -83,9 +108,6 @@ return (
       </form>
     </div>
 </div>
-  
-
-
 );
 
 }
