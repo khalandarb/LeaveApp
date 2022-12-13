@@ -27,7 +27,9 @@ namespace LeaveApp.Models
         [Display(Name = "End Date")]
         [DataType(DataType.Date)]
         public string Edate { get; set; }
+        [ForeignKey("ManID")]
+        public string? ManID { get; set; }
         [ForeignKey("EmpID")]
-        public Employee EID { get; set; }
+        public string? EmpID { get; set; }
     }
 }

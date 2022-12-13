@@ -26,7 +26,7 @@ namespace LeaveApp.Repositories
                 LType = leaves.LType,
                 Sdate = leaves.Sdate,
                 Edate = leaves.Edate,
-                EID = leaves.EID
+                EmpID = leaves.EmpID
             };
             dataBaseContext.Leaves.Add(le);
             await dataBaseContext.SaveChangesAsync();
@@ -58,7 +58,7 @@ namespace LeaveApp.Repositories
                     LType = le.LType,
                     Sdate = le.Sdate,
                     Edate = le.Edate,
-                    EID = le.EID
+                    EmpID = le.EmpID
                 });
             }
 
@@ -75,7 +75,7 @@ namespace LeaveApp.Repositories
                 ar.LType = leaves.LType;
                 ar.Sdate = ar.Sdate;
                 ar.Edate = ar.Edate;
-                ar.EID = ar.EID;
+                ar.EmpID = ar.EmpID;
             }
 
             await dataBaseContext.SaveChangesAsync();

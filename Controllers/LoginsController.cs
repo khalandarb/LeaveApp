@@ -32,21 +32,53 @@ namespace LeaveApp.Controllers
         [HttpPost]
         public bool Login(Login login)
         {
-            if (_context.Employees.Any(e => e.Email == login.Email && e.Password==login.Password))
+            bool result=false;
+            if (login.Role == "Employee")
             {
-                _context.Login.Add(login);
-                 _context.SaveChangesAsync();
+                if (_context.Employees.Any(e => e.Email == login.Email && e.Password == login.Password))
+                {
+                    _context.Login.Add(login);
+                    _context.SaveChangesAsync();
 
-                return true;
-            }
-            else
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }else if (login.Role == "Manager")
             {
-                return false;
+                if (_context.Managers.Any(m => m.Email == login.Email && m.Password == login.Password))
+                {
+                    _context.Login.Add(login);
+                    _context.SaveChangesAsync();
+
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
             }
-           
+            return result;
+
         }
 
-       
+        [HttpPost("{id}")]
+        public string GetMgrIdByEmpId(string id)
+        {
+            Employee employee = _context.Employees.Where(l => l.EmpID.ToString().Equals(id)).FirstOrDefault();
+
+            return employee.ManID.ToString();
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<IEnumerable<Leave>>> GetLeaveByEmpId(string id)
+        {
+            return await _context.Leaves.Where(l => l.EmpID.Equals(id)).ToListAsync();
+        }
+
+
         private bool LoginExists(int id)
         {
             return _context.Login.Any(e => e.Id == id);

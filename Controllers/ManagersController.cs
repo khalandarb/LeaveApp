@@ -73,7 +73,15 @@ namespace LeaveApp.Controllers
 
             return NoContent();
         }
+        [HttpPost("{MgrEmail}")]
+        public string SendEmpId(string MgrEmail)
+        {
+            Manager manager = _context.Managers.Where(m => m.Email == MgrEmail).FirstOrDefault();
 
+            return manager.ManID.ToString();
+
+
+        }
         // POST: api/Managers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

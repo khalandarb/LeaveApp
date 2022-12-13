@@ -28,7 +28,15 @@ namespace LeaveApp.Controllers
             return await _context.Leaves.ToListAsync();
         }
 
+       
+
         // GET: api/Leaves/5
+        [HttpPost("{id}")]
+        public async Task<ActionResult<IEnumerable<Leave>>> GetLeaveByEmpId(string id)
+        {
+            return await _context.Leaves.Where(l => l.ManID.Equals(id)).ToListAsync(); 
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Leave>> GetLeave(int id)
         {
@@ -48,6 +56,7 @@ namespace LeaveApp.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLeave(int id, Leave leave)
         {
+            leave.LID = id;
             if (id != leave.LID)
             {
                 return BadRequest();
@@ -78,12 +87,12 @@ namespace LeaveApp.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Leave>> PostLeave(Leave leave)
+        public bool PostLeave(Leave leave)
         {
             _context.Leaves.Add(leave);
-            await _context.SaveChangesAsync();
+             _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLeave", new { id = leave.LID }, leave);
+            return true;
         }
 
         // DELETE: api/Leaves/5

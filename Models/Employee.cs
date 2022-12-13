@@ -36,13 +36,15 @@ namespace LeaveApp.Models
         public string Gen { get; set; }
         [Required]
         [Display(Name = "Phone")]
-        public long Ph { get; set; }
+        public string Ph { get; set; }
         [Required]
         [Display(Name = "DOB")]
         [DataType(DataType.Date)]
         public string Date { get; set; }
+        public string NoOfLeaves { get;set; }
 
         [ForeignKey("ManID")]
-        public virtual Manager MID { get; set; }
+        public string? ManID { get; set; }
+      //  public virtual Manager MID { get; set; }
     }
 }

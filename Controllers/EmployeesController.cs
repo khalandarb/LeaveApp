@@ -74,6 +74,15 @@ namespace LeaveApp.Controllers
             return NoContent();
         }
 
+        [HttpPost("{UserEmail}")]
+        public string SendEmpId(string UserEmail)
+        {
+            Employee employee = _context.Employees.Where(e => e.Email.Equals(UserEmail)).FirstOrDefault();
+
+            return employee.EmpID.ToString();
+        }
+
+       
         // POST: api/Employees
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
